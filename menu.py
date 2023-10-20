@@ -60,28 +60,35 @@ class Menu:
         while 1:
             imdb_ids = favoritos.abrir_favoritos()
             if not imdb_ids == None:
-                escolha = input("Escolha um número para ver os detalhes ou 'q' para sair: ")
+                escolha = input("Escolha um número para ver os detalhes, 'q' para sair ou 'd' para limpar a lista: ")
                 if escolha == 'q':
                     print("Saindo da lista de favoritos.")
                     break
+                elif escolha == 'd':
+                    print("Voce tem certeza que deseja deletar TODOS os itens da lista? Isso nao e reversivel: ")
+                    escolha = input("Escolha 's' para confirmar ou 'n' para abortar a operacao: ")
+                    if escolha == 's':
+                        favoritos.deletar_todos_favoritos()
+                    elif escolha == 'n':
+                        print("Abortando operacao. ")
                 else:
                     try:
                         index = int(escolha)
                         imdb_id_escolhido = imdb_ids[index]
-                        ##dados_json = favoritos.exibir_detalhes(imdb_id_escolhido)
+                        favoritos.exibir_detalhes(imdb_id_escolhido)
                         escolha = input("Escolha 'd' para remover dos favoritos ou 'l' para voltar para a lista: ")
                         if escolha == 'l':
                             print("Voltando a lista.")
                         elif escolha == 'd':
-                            print(f"Tentando deletar dos favortios...")
-                            ##favoritos.deletar_favoritos(self.nome_pasta, dados_json)
+                            favoritos.deletar_favoritos(imdb_id_escolhido)
                             escolha = input("Escolha 'l' para voltar a lista ou 'q' para sair: ")
                             if escolha == 'l':
                                 print("Voltando a lista.")
                             elif escolha == 'q':
-                                print("Saindo da pesquisa.")
+                                print("Saindo da lista de favoritos.")
                                 break
                     except ValueError:
                         print("Escolha inválida. Insira um número válido.")
 
-
+            else:
+                break
