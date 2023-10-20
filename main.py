@@ -20,7 +20,7 @@ if __name__ == '__main__':
         if escolha == '1':
             menu.pesquisa_filmes()
         elif escolha == '2':
-            print("Ainda nao esta pronto!")
+            menu.acessar_favoritos()
         elif escolha == 'q':
             break
         else:

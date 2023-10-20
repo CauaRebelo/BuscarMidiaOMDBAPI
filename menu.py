@@ -1,4 +1,5 @@
 from gerenciador_omdb import GerenciadorOMDB
+from gerenciador_favoritos import GerenciadorFavoritos
 import math
 
 class Menu:
@@ -53,5 +54,34 @@ class Menu:
                     titulo = input("Qual titulo deseja buscar? ")
                 elif escolha == 'q':
                     break
+
+    def acessar_favoritos(self):
+        favoritos = GerenciadorFavoritos(self.nome_pasta)
+        while 1:
+            imdb_ids = favoritos.abrir_favoritos()
+            if not imdb_ids == None:
+                escolha = input("Escolha um número para ver os detalhes ou 'q' para sair: ")
+                if escolha == 'q':
+                    print("Saindo da lista de favoritos.")
+                    break
+                else:
+                    try:
+                        index = int(escolha)
+                        imdb_id_escolhido = imdb_ids[index]
+                        ##dados_json = favoritos.exibir_detalhes(imdb_id_escolhido)
+                        escolha = input("Escolha 'd' para remover dos favoritos ou 'l' para voltar para a lista: ")
+                        if escolha == 'l':
+                            print("Voltando a lista.")
+                        elif escolha == 'd':
+                            print(f"Tentando deletar dos favortios...")
+                            ##favoritos.deletar_favoritos(self.nome_pasta, dados_json)
+                            escolha = input("Escolha 'l' para voltar a lista ou 'q' para sair: ")
+                            if escolha == 'l':
+                                print("Voltando a lista.")
+                            elif escolha == 'q':
+                                print("Saindo da pesquisa.")
+                                break
+                    except ValueError:
+                        print("Escolha inválida. Insira um número válido.")
 
 
