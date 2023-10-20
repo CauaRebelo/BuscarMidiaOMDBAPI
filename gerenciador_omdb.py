@@ -56,8 +56,7 @@ class GerenciadorOMDB:
         if not data:
             return
         os.makedirs(nome_pasta, exist_ok=True)
-        print(f"imdbID: ", data.get('imdbID'))
-        path = f"/{nome_pasta}/{data.get('imdbID')}.json"
+        path = f"{nome_pasta}/{data.get('imdbID')}.json"
         if not os.path.exists(path):
             try:
                 with open(path, 'w') as arquivo_filme:

@@ -1,9 +1,9 @@
 # This is a sample Python script.
 
-import json
 from gerenciador_omdb import GerenciadorOMDB
 import favoritos
 import requests
+import math
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -15,25 +15,27 @@ if __name__ == '__main__':
     print_hi('PyCharm')
     apikey = "7eade183"
     titulo = ""
-    nome_pasta = "favoritos"
+    nome_pasta = "favorito"
     pagina = 1
 
     titulo = input("Qual titulo deseja buscar? ")
     pesquisador = GerenciadorOMDB(apikey)
-
     while(1):
         dados_json = pesquisador.pesquisa_filmes(titulo, pagina)
-        if dados_json:
+        if dados_json.get('totalResults') != None:
             imdb_ids = pesquisador.exibir_titulos(dados_json)
-            print("Escolha 'n' ou 'p' para ir para a proxima pagina ou anterior, ou 'q' para sair. Ou:")
+            print(f"Pagina: {pagina}/{math.ceil(int(dados_json.get('totalResults'))/10)}.")
+            print("Escolha 'p' ou 'a' para ir para a proxima pagina ou anterior, ou 'q' para sair. Ou:")
             escolha = input("Escolha um número para ver os detalhes: ")
             if escolha == 'q':
                 print("Saindo da pesquisa.")
                 break
-            elif escolha == 'n':
-                pagina+=1
             elif escolha == 'p':
-                pagina -=1
+                if not pagina == math.ceil(int(dados_json.get('totalResults'))/10):
+                    pagina+=1
+            elif escolha == 'a':
+                if not pagina == 1:
+                    pagina -=1
             else:
                 try:
                     index = int(escolha)
@@ -52,5 +54,12 @@ if __name__ == '__main__':
                             break
                 except ValueError:
                     print("Escolha inválida. Insira um número válido.")
+        else:
+            print("Não há nenhuma midia com esse titulo, deseja fazer outra pesquisa?")
+            escolha = input("Escolha 's' para fazer outra pesquisa ou 'q' para sair da pesquisa: ")
+            if escolha == 's':
+                titulo = input("Qual titulo deseja buscar? ")
+            elif escolha == 'q':
+                break
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
