@@ -9,13 +9,12 @@ class Menu:
         self.nome_pasta = nome_pasta
 
     def pesquisa_filmes(self):
-        titulo = ""
         pagina = 1
         titulo = input("Qual titulo deseja buscar? ")
         pesquisador = GerenciadorOMDB(self.api_key)
         while True:
             dados_json = pesquisador.pesquisa_filmes(titulo, pagina)
-            if dados_json.get('totalResults') != None:
+            if dados_json.get('totalResults') is not  None:
                 imdb_ids = pesquisador.exibir_titulos(dados_json)
                 print(f"Pagina: {pagina}/{math.ceil(int(dados_json.get('totalResults')) / 10)}.")
                 print("Escolha 'p' ou 'a' para ir para a proxima pagina ou anterior, ou 'q' para sair. Ou:")
@@ -59,7 +58,7 @@ class Menu:
         favoritos = GerenciadorFavoritos(self.nome_pasta)
         while True:
             imdb_ids = favoritos.abrir_favoritos()
-            if not imdb_ids == None:
+            if not imdb_ids is None:
                 escolha = input("Escolha um número para ver os detalhes, 'q' para sair ou 'd' para limpar a lista: ")
                 if escolha == 'q':
                     print("Saindo da lista de favoritos.")
