@@ -2,7 +2,7 @@ from menu import Menu
 
 if __name__ == '__main__':
     apikey = "7eade183"
-    nome_pasta = "favorito"
+    nome_pasta = "favoritos"
     menu = Menu(apikey, nome_pasta)
     while 1:
         print("Escolha uma opcao para utilizar: ")
