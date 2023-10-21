@@ -13,7 +13,7 @@ class Menu:
         pagina = 1
         titulo = input("Qual titulo deseja buscar? ")
         pesquisador = GerenciadorOMDB(self.api_key)
-        while 1:
+        while True:
             dados_json = pesquisador.pesquisa_filmes(titulo, pagina)
             if dados_json.get('totalResults') != None:
                 imdb_ids = pesquisador.exibir_titulos(dados_json)
@@ -57,7 +57,7 @@ class Menu:
 
     def acessar_favoritos(self):
         favoritos = GerenciadorFavoritos(self.nome_pasta)
-        while 1:
+        while True:
             imdb_ids = favoritos.abrir_favoritos()
             if not imdb_ids == None:
                 escolha = input("Escolha um número para ver os detalhes, 'q' para sair ou 'd' para limpar a lista: ")

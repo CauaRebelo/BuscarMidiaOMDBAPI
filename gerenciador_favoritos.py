@@ -61,7 +61,7 @@ class GerenciadorFavoritos:
         try:
             with open(path, "r") as arquivo_json:
                 dados = json.load(arquivo_json)
-                while 1:
+                while True:
                     print(f"Tem certeza que deseja deletar {dados.get('Title')}?")
                     escolha = input("Escolha 's' para confirmar ou 'n' para manter na lista de favoritos: ")
                     if escolha == 's':
